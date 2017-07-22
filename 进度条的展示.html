@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>进度条的展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border:none;
+        }
+        #progress{
+            width: 1000px;
+            height: 35px;
+            margin:100px auto;
+            position: relative;
+
+        }
+        #progress_bar{
+            width: 900px;
+            height: 35px;
+            background: #ccc;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            position: relative;
+
+
+
+        }
+        #progress_fg{
+            width:0;
+            height:35px;
+            background: orangered;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+
+        }
+        span{
+            width:30px;
+            height: 49px;
+            position: absolute;
+            left:0;
+            top:-7px;
+            border-radius: 10px;
+            background: orangered;
+
+        }
+        #progress_value{
+            position: absolute;
+            top:0;
+            right:40px;
+            line-height: 35px;
+
+        }
+
+    </style>
+</head>
+<body>
+<div id="progress" >
+    <!--<div>-->
+        <!--<div></div>-->
+        <!--<div></div>-->
+        <!--<span></span>-->
+    <!--</div>-->
+    <div id="progress_bar">
+        <div id="progress_fg"></div>
+        <span></span>
+    </div>
+    <div id="progress_value">0%</div>
+
+</div>
+
+
+
+<script>
+    window.onload = function () {
+        // 1.获取元素
+        var progress = document.getElementById('progress');
+        var progress_bar = progress.children[0];
+        var progress_value = progress.children[1];
+        var progress_fg = progress_bar.children[0];
+        var maskSpan = progress_bar.children[1];
+        /*2.点击盒子在整个屏幕中拖拽*/
+        maskSpan.onmousedown = function(event){
+            var event = event ||window.event;
+
+            /*2.1让在屏幕中移动,触发最大事件源的移动事件*/
+
+            /*2.10获取点击下去的中间使用的值*/
+            var distanceX = event.clientX - maskSpan.offsetLeft;
+            document.onmousemove = function(event){
+                /*2.11获取移动的距离*/
+                var event = event ||window.event;
+                var moveX = event.clientX - distanceX;
+
+                /*2.12设置极限值*/
+                /*2.121设置一个值用来记录最大的移动的距离*/
+                var maxMove = progress_bar.offsetWidth - maskSpan.offsetWidth;
+                if(moveX <= 0){
+                    moveX = 0;
+                }else  if(moveX >= maxMove ){
+                    moveX = maxMove;
+                }
+
+                /*2.2设置移动的距离,以及设置progress_fg的宽度*/
+                progress_fg.style.width = moveX +'px';
+                maskSpan.style.left = moveX +'px';
+
+                /*设置对应的右侧显示的值*/
+                progress_value.innerHTML =  parseInt(moveX/maxMove*100)+'%';
+
+
+
+
+            }
+            document.onmouseup = function(){
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+
+        }
+
+
+
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>星星海特效</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border:none;
+
+        }
+        body{
+            background: #000;
+        }
+        span{
+            width:30px;
+            height: 30px;
+            position: absolute;
+            background: url("images/star.png");
+            background-size: 100% 100%;
+            animation: flash 1s alternate infinite;
+            transition: all 1s;
+
+        }
+        @keyframes  flash {
+            0%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+
+        }
+        span:hover{
+            transform: scale(1.5,1.5) rotate(180deg)!important;
+        }
+
+    </style>
+</head>
+<body>
+
+
+
+<script>
+    window.onload = function () {
+        /*0.获取屏幕的宽度和高度*/
+        var screenW = document.documentElement.clientWidth;
+        var screenH = document.documentElement.clientHeight;
+
+        /*1.创建span*/
+        for(var i = 0;i<300;i++){
+            var span = document.createElement('span');
+            /*1.1添加星星*/
+            document.body.appendChild(span);
+            /*1.2设置随机位置*/
+            var myLeft = Math.random()*screenW;
+            var myTop = Math.random()*screenH;
+            span.style.left = myLeft +'px';
+            span.style.top = myTop +'px';
+            /*1.3设置随机大小*/
+            var scale = Math.random()*2;
+            span.style.transform =  'scale('+scale+','+scale+')';
+            /*1.4设置动画的延迟时间*/
+            var randomD = Math.random()*1.5;
+            span.style.animationDelay = randomD +'s';
+
+
+
+
+        }
+
+
+
+    }
+
+
+</script>
+</body>
+</html>

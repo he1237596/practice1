@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>照片墙效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border:none;
+            list-style:none;
+        }
+        /*为了兼容不同的浏览器*/
+        body,html,ul{
+            width:100%;
+            height:100%;
+        }
+        #ps
+        {
+            position: relative;
+        }
+        #ps li{
+            width: 250px;
+            height: 360px;
+            position: absolute;
+            transition:  all 1s ;
+
+        }
+        .curr{
+            position: absolute;
+            left: 50% !important;
+            top:50% !important;
+            /*既要平移又要旋转
+            先要平移,*/
+            transform:translate(-50%,-50%) rotate(0deg) scale(1.5,1.5) !important;
+            z-index: 99;
+        }
+
+    </style>
+</head>
+<body>
+<ul id="ps">
+    <!--<li><img src="images/pic1.jpg"></li>-->
+</ul>
+
+<script src="js/Underscore-min.js"></script>
+<script>
+    window.onload = function () {
+        /*0.获取标签*/
+        var ps = document.getElementById('ps');
+        // 1.创建标签
+        for(var i = 0;i< 10;i++){
+            /*1.1创建li*/
+            var oli = document.createElement('li');
+            ps.appendChild(oli);
+            /*1.2创建图片
+            * */
+            var img  = document.createElement('img');
+            /*1.3设置图片的资源*/
+            img.src = 'images/pic'+(i +1)+'.jpg';
+            /*1.4添加图片*/
+            oli.appendChild(img);
+        }
+        /*获取屏幕的宽度和高度的代码必须写在添加节点之后
+        * */
+        /*获取屏幕的宽度和高度*/
+        var screenW = document.documentElement.clientWidth - 250;
+        var screenH = document.documentElement.clientHeight - 360;
+        /*2.点击图片的时候,设置对应的图片的位置和旋转角度*/
+        for(var i = 0;i< ps.children.length;i++){
+            /*1.5设置随机位置*/
+            var oli = ps.children[i];
+            oli.style.left = _.random(0,screenW) +'px';
+            oli.style.top = _.random(0,screenH)+'px';
+            /*1.6设置随机旋转角度*/
+            var randomRotate = _.random(0,360);
+            oli.style.transform = 'rotate('+randomRotate+'deg)'
+            ps.children[i].onclick = function(){
+                /*2.1设置其他的图片为原来的值*/
+                for(var j = 0;j < ps.children.length;j++){
+                    ps.children[j].className = '';
+                }
+                this.className = 'curr';
+            }
+        }
+    }
+
+
+</script>
+</body>
+</html>

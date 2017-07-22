@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>放大镜效果的实现</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border:none;
+            list-style: none;
+        }
+        #all{
+            width: 350px;
+            height: 350px;
+            margin:100px 0 0 100px;
+            position: relative;;
+        }
+        #small{
+            width: 350px;
+            height: 350px;
+            border:1px solid #ccc;
+            position: relative;
+        }
+        #small span{
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,0,.4);
+            position: absolute;
+            display: none;
+        }
+        #small img{
+            width: 350px;
+            height: 350px;
+        }
+        /*大的盒子的宽度和高度一定小于图片本身的宽度和高度*/
+        #big{
+
+            width:600px;
+            height: 600px;
+            border:1px solid #ccc;
+            position: absolute;
+            left:360px;
+            top:0;
+            display: none;
+            overflow: hidden;
+
+        }
+        #big img{
+            position: absolute;
+        }
+        #list{
+            margin:10px 0 0 100px;
+
+        }
+        #list img{
+            margin:4px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="all" class="all">
+    <div id="small">
+        <span></span>
+        <img src="images/pic001.jpg" alt="">
+    </div>
+    <div id="big">
+        <img src="images/pic01.jpg" alt="">
+    </div>
+</div>
+<div id="list">
+    <img src="images/pic0001.jpg" alt="">
+    <img src="images/pic0002.jpg" alt="">
+    <img src="images/pic0003.jpg" alt="">
+</div>
+
+<script>
+window.onload =function(){
+    /*1.获取标签*/
+    var all = document.getElementById('all');
+    var smallBox = all.children[0];
+    var maskSpan = smallBox.children[0];
+    var bigBox = all.children[1];
+    var big_img = bigBox.children[0];
+    var list = document.getElementById('list');
+    /*2.当移动到小盒子内部的时候,让span以及big盒子显示*/
+    smallBox.onmouseover = function(){
+        /*2.1让大盒子以及span显示*/
+        bigBox.style.display = 'block';
+        maskSpan.style.display = 'block';
+
+        /*2.2设置在小盒子内部移动的时候,设置小盒子的的span的位置以及大盒子的移动*/
+        smallBox.onmousemove = function(event){
+            /*2.20获取事件对象*/
+            var event = event ||window.event;
+            /*2.21.获取移在小盒子内部移动的距离*/
+            /*移动的距离= 当前的对应的位置 - 小盒子的offsetParent的距离左边的间距- span的宽度的一半*/
+
+            var moveX = event.clientX - smallBox.offsetParent.offsetLeft - maskSpan.offsetWidth *0.5;
+            var moveY = event.clientY - smallBox.offsetParent.offsetTop - maskSpan.offsetHeight *0.5;
+            /*2.211设置对应的极限值的判断*/
+            if(moveX <= 0){
+                moveX = 0;
+            }else if(moveX >= smallBox.offsetWidth - maskSpan.offsetWidth){
+                moveX = smallBox.offsetWidth - maskSpan.offsetWidth;
+            }
+            if(moveY <= 0){
+                moveY = 0;
+            }else if(moveY >= smallBox.offsetHeight - maskSpan.offsetHeight){
+                moveY = smallBox.offsetHeight - maskSpan.offsetHeight;
+            }
+            /*2.22跟怒移动的距离设置对应的位置*/
+            maskSpan.style.left = moveX +'px';
+            maskSpan.style.top = moveY +'px';
+
+            /*2.3当在小盒子中移动的时候,让对应的大盒子中的图片移动起来*/
+            /*使用比例
+            * 小盒子移动的距离/大盒子移动的距离 = 小盒子的宽度/大盒子的宽度*/
+            var moveBigX  = - moveX/(smallBox.offsetWidth /bigBox.offsetWidth);
+            var moveBigY = - moveY/(smallBox.offsetHeight/bigBox.offsetHeight);
+            /*2.31设置图片的位置*/
+            big_img.style.left = moveBigX +'px';
+            big_img.style.top = moveBigY +'px';
+        }
+    }
+
+    /*3.当移除small的时候,让对应的span以及大盒子消失*/
+    smallBox.onmouseout = function(){
+        bigBox.style.display = 'none';
+        maskSpan.style.display= 'none';
+    }
+
+    /*4.当移动到list中的小图片上的时候,设置对应的小的盒子中的图片以及大的盒子中的图片*/
+
+    for(var i= 0;i<list.children.length;i++){
+        list.children[i].index = i;
+        list.children[i].onmouseover = function(){
+            /*4.1设置小的盒子以及打的盒子的图片
+            * 在这里面获取不了对应i
+            * 需要在外面记录i值*/
+            smallBox.children[1].src = 'images/pic00'+(this.index +1)+'.jpg';
+            big_img.src =  'images/pic0'+(this.index +1)+'.jpg';
+
+        }
+    }
+
+
+}
+
+
+</script>
+</body>
+</html>

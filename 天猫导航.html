@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>天猫导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            list-style: none;
+        }
+        #box{
+            width:900px;
+            height: 63px;
+            margin:100px auto;
+            background: url("images/doubleOne.png") no-repeat right center #ccc;
+            position: relative;
+        }
+        li{
+            width:88px;
+            height: 63px;
+            line-height: 63px;
+            text-align:center;
+            float: left;
+        }
+        ul{
+            position: relative;
+        }
+        span{
+            width: 88px;
+            height: 63px;
+            position: absolute;
+            background: url("images/tMall.png");
+        }
+
+
+    </style>
+</head>
+<body>
+<nav id="box">
+    <span id="oSpan"></span>
+    <ul id="oul">
+        <li>双11狂欢</li>
+        <li>服装会场</li>
+        <li>数码家电</li>
+        <li>家具建材</li>
+        <li>母婴童装</li>
+        <li>手机会场</li>
+        <li>美妆会场</li>
+        <li>进口会场</li>
+        <li>飞猪旅行</li>
+
+    </ul>
+</nav>
+
+
+
+<script>
+    window.onload = function () {
+        // 1.获取元素
+        var oul = document.getElementById('oul');
+        var oSpan = document.getElementById('oSpan');
+        var lis = oul.children;
+        /*2.当移动到li触发对应的事件*/
+        /*2.0设置定时器*/
+        var timer = null;
+        var begin = 0 ;
+        for(var i= 0;i< lis.length;i++){
+            lis[i].onmouseover = function(){
+                /*2.1让采用缓动动画动起来*/
+                clearInterval(timer);
+                /*定时器中的this表示window
+                * 如果我们需要在定时器中使用对应的事件源,
+                * 我们需要在定时器外面事件指令中记录this
+                * 然后在定时器中使用*/
+                var that = this;
+                timer = setInterval(function(){
+                    var speed = (that.offsetLeft - begin)/20;
+                    begin += speed;
+                    /*2.2设置对应的位置*/
+                    oSpan.style.left = begin +'px';
+                },10)
+            }
+            lis[i].onmouseout = function(){
+
+                /*清空定时器*/
+                clearInterval(timer);
+                var beginLeft = this.offsetLeft;
+                timer = setInterval(function(){
+                    var speed = (0 - beginLeft)/20;
+                    beginLeft += speed;
+                    oSpan.style.left = beginLeft +'px';
+                },10)
+            }
+        }
+    }
+
+
+</script>
+</body>
+</html>
