@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border:none;
+            list-style: none;
+        }
+
+        img{
+            width:100%;
+            vertical-align: top;
+        }
+        section{
+            width:70%;
+            margin:0 auto;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<head id="head">
+    <img src="images/top.png" alt="">
+</head>
+<nav id="nav">
+    <img src="images/nav.png" alt="">
+</nav>
+<section>
+    <img src="images/body01.png" alt="">
+    <img src="images/body02.png" alt="">
+</section>
+
+
+<script src="MyFn.js"></script>
+<script>
+    window.onload = function () {
+        // 1.获取元素
+        var nav = document.getElementById('nav');
+        var offsetT = nav.offsetTop;
+        /*2.监听滚动设置比较*/
+        window.onscroll=  function(){
+            /*2.1获取滚动的距离*/
+            var scrollT = scroll().top;
+            //2.2比较
+            if(scrollT >= offsetT){
+                /*设置对应nav固定,设置位置fixed*/
+                nav.style.position = 'fixed';
+                nav.style.left = 0;
+                nav.style.top = 0;
+            }else{
+                /*设置原来的默认定位*/
+                nav.style.position = 'static';
+
+            }
+
+        }
+
+
+
+    }
+
+
+</script>
+</body>
+</html>

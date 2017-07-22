@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>侧边横幅移动效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border:none;
+        }
+        div{
+            width: 150px;
+            position: absolute;
+            left:0;
+            top:150px;
+        }
+        div img{
+            width: 150px;
+        }
+        p{
+            text-align: center;
+            height: 50px;
+            font-size:20px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="box">
+    <img src="images/float.jpg">
+</div>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+<p>好好学习,好好学习,不要睡觉</p>
+
+
+<script src="MyFn.js"></script>
+<script>
+    window.onload = function () {
+        // 1.获取元素
+        var box = document.getElementById('box');
+        /*2.监听滚动*/
+        var begin = 150;
+        var timer  = null;
+        window.onscroll = function(){
+            var target = 150 +scroll().top;
+            clearInterval(timer);
+            timer = setInterval(function(){
+
+                 var speed = (target - begin)*0.2;
+                begin +=speed;
+                //2.1设置位置
+                box.style.top = begin +'px';
+
+            },10)
+
+
+        }
+
+
+    }
+
+
+</script>
+</body>
+</html>

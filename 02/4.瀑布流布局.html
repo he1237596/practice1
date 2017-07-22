@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瀑布流布局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border:none;
+        }
+        #main{
+            position: relative;
+
+        }
+        .box{
+            float: left;
+            padding: 10px 0 0 10px;
+        }
+
+        .pic{
+            padding:10px;
+            border:1px solid #ccc;
+        }
+        .pic img{
+            width:150px;
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+
+
+    <div class="box"><div class="pic"><img src="images/0.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/1.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/2.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/3.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/4.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/5.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/6.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/7.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/8.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/9.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/10.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/11.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/12.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/13.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/14.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/15.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/16.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/17.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/18.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/19.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/20.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/21.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/22.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/23.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/24.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/25.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/26.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/27.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/28.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/29.jpg" alt=""></div></div>
+    <div class="box"><div class="pic"><img src="images/30.jpg" alt=""></div></div>
+
+</div>
+
+
+<script src="Underscore-min.js"></script>
+<script src="MyFn.js"></script>
+<script>
+    window.onload = function () {
+        /*滚动的时候加载数据*/
+        window.onscroll = function(){
+            /*0判断加载*/
+            if(checkLoadData() ){
+                /*0.1加载数据,
+                * 数据从网络服务器中来,但是我们现在没有数据
+                * 我们需要自己设置数据
+                * 这个数据是json数据,外层是数组
+                * 里面是字典*/
+               var dataImages = [{src:'21.jpg'},{src:'11.jpg'},{src:'1.jpg'},{src:'12.jpg'},{src:'13.jpg'},
+                    {src:'21.jpg'},{src:'21.jpg'},{src:'11.jpg'},{src:'1.jpg'},{src:'12.jpg'},{src:'13.jpg'}];
+                /*0.2根据数据添加就节点*/
+                /*0.21操控数据*/
+                for(var i = 0;i< dataImages.length;i++){
+                    var addBox = document.createElement('div');
+                    addBox.className = 'box';
+                    var picBox = document.createElement('div');
+                    picBox.className = 'pic';
+                    /*0.3添加盒子*/
+                    document.getElementById('main').appendChild(addBox);
+                    addBox.appendChild(picBox);
+                    /*0.4添加图片*/
+                    var img = document.createElement('img');
+                    img.src = 'images/'+dataImages[i].src;
+                    picBox.appendChild(img);
+
+
+                }
+
+                /*0.22根据添加的数据跟新界面,就是调用water方法*/
+                water();
+
+
+            }
+        }
+
+        /*0.调用这个函数
+        **/
+        water();
+        }
+            /*封装抽取函数,用来设置瀑布流*/
+    function  water(){
+        // 1.获取元素
+        var main = document.getElementById('main');
+        var box = main.children;
+        /*2.设置main居中,
+         * 2.1设置对应的main的宽度
+
+         * 2.2设置margin值*/
+        /*main的宽度 = 一个盒子的宽度 *列数*/
+        /*2.21获取一个盒子的跨度*/
+        var boxW = box[0].offsetWidth;
+        /*2.22获取列数*/
+        var screenW = document.documentElement.clientWidth;
+        var col = parseInt(screenW / boxW);
+        /*2.23设置main的宽度*/
+        main.style.width = col *boxW +'px';
+        /*2.24设置main的margin*/
+        main.style.margin = '0 auto';
+
+        /*设置流水布局,就是设置每一个盒子的位置
+         * 所以要遍历所有的盒子*/
+        /*设置一个数组用来记录第一行的盒子的高度*/
+        var heightArray = [];
+        var boxHeight = 0;
+        for(var  i= 0;i< box.length;i++){
+            /*判断第一个中盒子和其余行的盒子
+             * */
+            boxHeight = box[i].offsetHeight;
+            if(i < col){
+                //表示第一行,使用数组添加第一行所有的盒子的高度
+                heightArray.push(boxHeight);
+
+            }else{//其余行的盒子,我们要设置位置
+                /*下一个盒摆放的时候应该放在第一行中最短的高度的盒子的下面
+                 * 所以我们要求出第一行中最短的盒子是那一个
+                 * _.min(heightArray:通过这个方法可以获取数组中最小的值*/
+                var minHeight = _.min(heightArray);
+
+                /*获取最小值的索引值,属于一个方法,我们最好抽取一个函数用来获取最小的索引*/
+                var minIndex = getMinIndex(heightArray,minHeight);
+                /*设置每一个盒子的位置*/
+                box[i].style.position = 'absolute';
+                box[i].style.left = minIndex *boxW +'px';
+                box[i].style.top = minHeight +'px';
+                /*每次遍历都更新最小索引对应的位置中的高度*/
+                heightArray[minIndex]+=box[i].offsetHeight;
+            }
+        }
+    }
+
+    /*3.抽取一个方法用来获取最小的索引值*/
+    function  getMinIndex(arr,value){
+        for(var i= 0;i<arr.length;i++){
+            if(value == arr[i]){
+                return i;
+
+            }
+        }
+    }
+    /*4.判断什么时候加载*/
+    function checkLoadData(){
+
+
+        /*4.1获取最后一个盒子*/
+        var main = document.getElementById('main');
+        var box = main.children;
+        var lastBox = box[box.length -1];
+        /*4.2获取计算相关的值*/
+        var screenH = document.documentElement.clientHeight;
+
+        var scrollT = scroll().top;
+
+        /*4.3判断比较*/
+        if(screenH + scrollT >= lastBox.offsetTop + lastBox.offsetHeight *0.5){
+
+
+            /*就要加载*/
+            return true;
+
+        }else
+        {
+            return false;
+        }
+
+
+    }
+
+
+
+</script>
+</body>
+</html>

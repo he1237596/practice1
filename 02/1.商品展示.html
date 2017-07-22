@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border:none;
+        }
+        #all{
+            width: 800px;
+            height: 200px;
+            border:1px solid #ccc;
+            margin:100px auto;
+            position: relative;
+            overflow: hidden;
+
+        }
+        ul{
+            width: 2600px;
+            position: absolute;
+            left:0;
+            top:20px;
+        }
+        ul li{
+            float: left;
+            list-style: none;
+        }
+        #bottom{
+            width:100%;
+            height: 25px;
+            background: #ccc;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+
+
+        }
+        span{
+            width:0;
+            height: 25px;
+            background: orangered;
+            border-radius: 10px;
+            position: absolute;
+
+
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="all" class="all">
+    <ul>
+        <li><img src="images/img1.jpg" alt=""></li>
+        <li><img src="images/img2.jpg" alt=""></li>
+        <li><img src="images/img3.jpg" alt=""></li>
+        <li><img src="images/img4.jpg" alt=""></li>
+        <li><img src="images/img5.jpg" alt=""></li>
+        <li><img src="images/img6.jpg" alt=""></li>
+        <li><img src="images/img7.jpg" alt=""></li>
+        <li><img src="images/img8.jpg" alt=""></li>
+        <li><img src="images/img1.jpg" alt=""></li>
+        <li><img src="images/img2.jpg" alt=""></li>
+        <li><img src="images/img1.jpg" alt=""></li>
+        <li><img src="images/img2.jpg" alt=""></li>
+        <li><img src="images/img3.jpg" alt=""></li>
+        <li><img src="images/img4.jpg" alt=""></li>
+        <li><img src="images/img5.jpg" alt=""></li>
+        <li><img src="images/img6.jpg" alt=""></li>
+        <li><img src="images/img7.jpg" alt=""></li>
+        <li><img src="images/img8.jpg" alt=""></li>
+        <li><img src="images/img1.jpg" alt=""></li>
+        <li><img src="images/img2.jpg" alt=""></li>
+
+    </ul>
+    <div id="bottom" class="bottom">
+        <span></span>
+    </div>
+</div>
+
+
+
+<script>
+    window.onload = function () {
+        // 1.获取元素
+        var all = document.getElementById('all');
+        var oul = all.children[0];
+        var bottomBox = all.children[1];
+        var maskSpan = bottomBox.children[0];
+        /*2.设置span的宽度*/
+        /*span的宽度/盒子的宽度 = 盒子的宽度/内容的宽度*/
+        var spanW = all.offsetWidth /oul.offsetWidth *all.offsetWidth;
+        maskSpan.style.width = spanW +'px';
+
+        /*3.设置span的位置,需要或移动的距离*/
+        maskSpan.onmousedown = function(event){
+            var event = event ||window.event;
+            var distanceX = event.clientX - maskSpan.offsetLeft;
+
+            document.onmousemove = function(event){
+                var event = event ||window.event;
+                var moveX = event.clientX - distanceX;
+                /*3.1判断极限值*/
+                if(moveX <= 0){
+                    moveX  = 0;
+                }else if(moveX >= all.offsetWidth - maskSpan.offsetWidth){
+                    moveX = all.offsetWidth - maskSpan.offsetWidth;
+                }
+                /*3.2设置位置*/
+                maskSpan.style.left = moveX +'px';
+
+                /*3.3设置内容的滚动的距离*/
+                /*span移动的距离/内容移动的距离= (盒子的宽度 - span的宽度)/(内容的跨度 - 盒子的跨度)*/
+                var content_length =  - moveX/((all.offsetWidth - maskSpan.offsetWidth)/(oul.offsetWidth -all.offsetWidth))
+
+                /*3.4设置oul的位置*/
+                oul.style.left = content_length +'px';
+
+
+
+                /*系统的事件默认有一些行为,所以我们发现有时候,我们会出现一些选中现象\
+                * 我们需要去掉默认事件,就是在事件的末尾返回false*/
+
+                return false;
+
+
+            }
+            document.onmouseup = function(){
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+
+
+        return false;
+
+
+
+    }
+
+
+</script>
+</body>
+</html>
