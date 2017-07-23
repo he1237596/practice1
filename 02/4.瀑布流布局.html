@@ -70,45 +70,61 @@
 <script src="MyFn.js"></script>
 <script>
     window.onload = function () {
+        //改变窗口大小后确保重列数自适应
+        //函数节流:降低函数调用次数,降低消耗,
+        //采用每次间隔事件调用,因为onresize每次频繁执行
+        //或者用闭包
+//        window.onresize = water;
+        var timer1=null;
+        window.onresize = function () {
+            clearTimeout(timer1);
+            timer1 = setTimeout(water,100);
+        }
+        var timer2=null;
         /*滚动的时候加载数据*/
         window.onscroll = function(){
             /*0判断加载*/
-            if(checkLoadData() ){
-                /*0.1加载数据,
-                * 数据从网络服务器中来,但是我们现在没有数据
-                * 我们需要自己设置数据
-                * 这个数据是json数据,外层是数组
-                * 里面是字典*/
-               var dataImages = [{src:'21.jpg'},{src:'11.jpg'},{src:'1.jpg'},{src:'12.jpg'},{src:'13.jpg'},
-                    {src:'21.jpg'},{src:'21.jpg'},{src:'11.jpg'},{src:'1.jpg'},{src:'12.jpg'},{src:'13.jpg'}];
-                /*0.2根据数据添加就节点*/
-                /*0.21操控数据*/
-                for(var i = 0;i< dataImages.length;i++){
-                    var addBox = document.createElement('div');
-                    addBox.className = 'box';
-                    var picBox = document.createElement('div');
-                    picBox.className = 'pic';
-                    /*0.3添加盒子*/
-                    document.getElementById('main').appendChild(addBox);
-                    addBox.appendChild(picBox);
-                    /*0.4添加图片*/
-                    var img = document.createElement('img');
-                    img.src = 'images/'+dataImages[i].src;
-                    picBox.appendChild(img);
+            clearTimeout(timer2);
+            timer2 = setTimeout(function () {
+                if(checkLoadData() ){
+                    /*0.1加载数据,
+                     * 数据从网络服务器中来,但是我们现在没有数据
+                     * 我们需要自己设置数据
+                     * 这个数据是json数据,外层是数组
+                     * 里面是字典*/
+                    var dataImages = [{src:'21.jpg'},{src:'11.jpg'},{src:'1.jpg'},{src:'12.jpg'},{src:'13.jpg'},
+                        {src:'21.jpg'},{src:'21.jpg'},{src:'11.jpg'},{src:'1.jpg'},{src:'12.jpg'},{src:'13.jpg'}];
+                    /*0.2根据数据添加就节点*/
+                    /*0.21操控数据*/
+                    for(var i = 0;i< dataImages.length;i++){
+                        var addBox = document.createElement('div');
+                        addBox.className = 'box';
+                        var picBox = document.createElement('div');
+                        picBox.className = 'pic';
+                        /*0.3添加盒子*/
+                        document.getElementById('main').appendChild(addBox);
+                        addBox.appendChild(picBox);
+                        /*0.4添加图片*/
+                        var img = document.createElement('img');
+                        img.src = 'images/'+dataImages[i].src;
+                        picBox.appendChild(img);
+
+
+                    }
+
+                    /*0.22根据添加的数据跟新界面,就是调用water方法*/
+                    water();
 
 
                 }
-
-                /*0.22根据添加的数据跟新界面,就是调用water方法*/
                 water();
 
+            },100)
 
-            }
         }
 
         /*0.调用这个函数
         **/
-        water();
         }
             /*封装抽取函数,用来设置瀑布流*/
     function  water(){
@@ -142,7 +158,8 @@
             if(i < col){
                 //表示第一行,使用数组添加第一行所有的盒子的高度
                 heightArray.push(boxHeight);
-
+                //确保改变出窗口后自适应时,第一行重新排满
+                box[i].style.position = null;
             }else{//其余行的盒子,我们要设置位置
                 /*下一个盒摆放的时候应该放在第一行中最短的高度的盒子的下面
                  * 所以我们要求出第一行中最短的盒子是那一个

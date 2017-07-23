@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无限轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border:none;
+        }
+        #all{
+            width: 750px;
+            height: 320px;
+            margin:100px auto;
+            border:1px solid #ccc;
+            padding: 10px;
+            position: relative;
+
+
+        }
+        #top{
+            width:750px;
+            height: 320px;
+            position: relative;
+            overflow: hidden;
+
+
+        }
+        #top ul{
+            width:4500px;
+            height: 320px;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+        #top ul li{
+            float: left;
+            width: 750px;
+            height: 320px;
+            list-style: none;
+        }
+
+        #all ol{
+            position: absolute;
+            right: 10px;
+            bottom:10px;
+
+        }
+        #all ol li{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right:4px;
+            background: darkgrey;
+            
+            
+        }
+        #all ol li.curr{
+            background: red;
+        }
+        
+
+    </style>
+</head>
+<body>
+<div id="all">
+    <div id="top">
+        <ul id="oul">
+
+            <li><img src="imgs/pic01.jpg" alt=""></li>
+            <li><img src="imgs/pic02.jpg" alt=""></li>
+            <li><img src="imgs/pic03.jpg" alt=""></li>
+            <li><img src="imgs/pic04.jpg" alt=""></li>
+            <li><img src="imgs/pic05.jpg" alt=""></li>
+
+
+
+        </ul>
+    </div>
+
+    <ol id="ol">
+
+
+    </ol>
+</div>
+
+<script src="MyFn.js"></script>
+<script>
+
+
+ /*1.获取元素*/
+    var oul = document.getElementById('oul');
+    var ol= document.getElementById('ol');
+    var lis = oul.children;
+ /*1.设置一个值用来将要显示的值*/
+
+  var curr_index = 0;
+ /*1.1使用一个值来记录显示的小圆点的索引*/
+ var indicator_index = 0;
+    /*2.克隆lis中的第一个节点放在ul的最后面*/
+    oul.appendChild(lis[0].cloneNode(true));
+
+    /*3根据对应的节点的个数确定他小园点的个数*/
+    　for(var i = 0;i < lis.length -1;i++){
+         //3.1设置li
+         var oli = document.createElement('li');
+         ol.appendChild(oli);
+
+     }
+
+    /*3.2设置第一个为红色*/
+    ol.children[0].className = 'curr';
+
+    /*4.当移动到小原点上的时候,设置对应的逻辑*/
+    for(var i= 0;i< ol.children.length;i++){
+        /*4.1移动到的小圆点的颜色为红色,其余为原来的颜色,设置排他*/
+        /*使用扩展属性来记录对应的值*/
+        ol.children[i].index = i;
+        ol.children[i].onmouseover = function(){
+
+            /*4.11设置排他*/
+
+            for(var j = 0;j<ol.children.length;j++){
+                ol.children[j].className = '';
+            }
+            ol.children[this.index].className = 'curr';
+
+            /*4.2让对应的ul动起来*/
+            constant(oul,20,-this.index *750);
+
+
+        }
+
+
+
+
+    }
+
+    /*5.设置让自动动起来*/
+//    var timer = setInterval(auto_play,1000);
+//    function auto_play(){
+//        curr_index ++;
+//        if(curr_index > lis.length -1){
+//            curr_index = 1;
+//            oul.style.left = 0;
+//        }
+//
+//        /*设置动画让动起来*/
+//        constant(oul,20,-750*curr_index);
+//
+//        /*设置是下面小圆点的颜色*/
+//        indicator_index ++;
+//        if(indicator_index > ol.children.length -1){
+//            indicator_index = 0;
+//
+//        }
+//        /*设置颜色
+//        * 就是排他*/
+//        for(var i= 0;i < ol.children.length;i++){
+//            ol.children[i].className = '';
+//        }
+//        ol.children[indicator_index].className = 'curr';
+//
+//
+//
+//    }
+
+
+
+</script>
+</body>
+</html>

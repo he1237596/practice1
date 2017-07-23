@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>匀速动画的回顾</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border:none;
+        }
+        div{
+            width:100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+
+    </style>
+</head>
+<body>
+<button id="btn">开始动画</button>
+<button id="btn2">返回动画</button>
+<div id="box"></div>
+
+
+<script src="MyFn.js"></script>
+<script>
+
+    /*1.获取标签*/
+    var box = document.getElementById('box');
+    var btn = document.getElementById('btn');
+    var btn2 = document.getElementById('btn2');
+    /*2.点击按钮开始动画*/
+//    var timer = null;
+//    var target = 800;
+    btn.onclick = function(){
+        constant(box,4,800);
+
+    }
+
+    /*3.点击返回返回动画*/
+//    var timer1 = null;
+//
+//    var target1 = 0;
+    btn2.onclick = function(){
+        constant(box,4,0);
+
+    }
+
+//    /*用来封装匀速动画*/
+//    function constant(obj,speed,target){
+//
+//        /*对于timer我们可以使用给对应的标签,扩展属性来设置timer,就不需要使用变量*/
+//
+//        clearInterval(obj.timer);
+//        obj.timer =setInterval(function(){
+//
+//            /*设定速度*/
+//            var mySpeed = target>obj.offsetLeft?speed:-speed;
+//
+//
+//
+//            obj.style.left = obj.offsetLeft +mySpeed +'px';
+//            /*为了让对应的值不超出最终的值,我们可以使用target- begin和速度比较*/
+//            if( Math.abs(target -obj.offsetLeft)  < Math.abs(mySpeed)){
+//                clearInterval(obj.timer);
+//                obj.style.left =target+'px';
+//            }
+//
+//        },10)
+//
+//    }
+
+
+
+</script>
+</body>
+</html>
