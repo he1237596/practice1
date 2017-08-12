@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .box{
+            width: 400px;
+            height: 300px;
+            border: 1px solid #000;
+            margin: 60px auto;
+            padding: 10px;
+        }
+        .box ul{
+            overflow: hidden;
+        }
+        .box ul li{
+            float: left;
+            width: 100px;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        p{
+            text-align: center;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<script src="jquery-3.1.1.js"></script>
+<script>
+    $(function () {
+        $('li:gt(3):not(:last)').hide();
+
+        //记录是否为展示，true:为隐藏
+        var flag = true;
+        $('p').click(function () {
+            flag = !flag;
+            alert(flag);
+            $('li:gt(3):not(:last)').slideToggle(1000,function () {
+
+                if (flag){
+                    $('p').text('显示');
+                }else{
+                    $('p').text('收起');
+                }
+            });
+
+        });
+
+    });
+</script>
+<body>
+
+<div class="box">
+    <ul>
+        <li>佳能</li>
+        <li>索尼</li>
+        <li>三星</li>
+        <li>尼康</li>
+        <li>松下</li>
+        <li>卡西欧</li>
+        <li>富士</li>
+        <li>可达</li>
+        <li>宾得</li>
+        <li>理光</li>
+        <li>奥林巴斯</li>
+        <li>明基</li>
+        <li>显示其它品牌</li>
+    </ul>
+    <p>显示所有内容</p>
+</div>
+
+</body>
+</html>

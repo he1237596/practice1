@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="jquery-3.1.1.js"></script>
+<script>
+    $(function () {
+        //数组
+        /*var array = ['a','b','c'];
+        $.each(array,function (key,value) {
+           console.log(key,value);
+        });*/
+
+        //json也行
+        var obj = [
+            {name:'gxq',age:'20'},
+            {name:'zs',age:'18'},
+            {name:'wc',age:'21'},
+            ];
+
+        $.each(obj,function (key,value) {
+            console.log(value.name,value.age);
+        });
+
+        //dom节点
+        //each迭代出来的value 它是一个原生js对象，没有办法直接使用jQuery方法
+        //想要使用必须得要转成jQuery对象
+        $('li').each(function (key,value) {
+            console.log($(value).text());
+        });
+
+    });
+</script>
+<body>
+<ul>
+    <li>我是li-1</li>
+    <li>我是li-2</li>
+    <li>我是li-3</li>
+    <li>我是li-4</li>
+    <li>我是li-5</li>
+    <li>我是li-6</li>
+    <li>我是li-7</li>
+    <li>我是li-8</li>
+    <li>我是li-9</li>
+    <li>我是li-10</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+            list-style: none;
+        }
+
+        .box{
+            width: 650px;
+            height: 260px;
+            border: 5px solid #000;
+            margin: 100px auto;
+            position: relative;
+        }
+
+
+        .box ul{
+            position: relative;
+            z-index: 1;
+        }
+        .box ul li{
+            position: absolute;
+            top:0;
+            left:0;
+        }
+        .box ul li:first-child{
+            z-index: 2;
+        }
+        .box img{
+            width: 650px;
+            height: 260px;
+        }
+
+        .box ol{
+            z-index:2;
+            position: absolute;
+            color: #fff;
+            right: 10px;
+            bottom: 10px;
+        }
+        .box ol li{
+            width: 15px;
+            height: 15px;
+            text-align: center;
+            line-height: 20px;
+            float: left;
+            padding: 5px;
+            background: #ccc;
+            margin-right: 2px;
+
+        }
+
+        .box ol .cur{
+            background: #666;
+            border: 1px solid #f40;
+            margin-top: -1px;
+        }
+
+    </style>
+</head>
+
+
+<script src="jquery-3.1.1.js"></script>
+<script>
+    $(function () {
+
+        var z_index = 3;
+        //设置选中状态
+        $('ol>li').mouseenter(function () {
+           $(this).addClass('cur').siblings().removeClass('cur');
+           /*获取当前是在哪个角标上*/
+           var index = $(this).index();
+           /*查找对应的图片*/
+           $('ul>li').eq(index).css({
+               'z-index':z_index
+           }).hide().fadeIn();
+            z_index++;
+            console.log(z_index)
+        });
+
+    });
+</script>
+
+<body>
+
+<div class="box">
+
+    <ol>
+        <li class="cur">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+
+
+    <ul>
+        <li><img src="images/01.png" alt=""></li>
+        <li><img src="images/02.png" alt=""></li>
+        <li><img src="images/03.png" alt=""></li>
+        <li><img src="images/04.png" alt=""></li>
+    </ul>
+
+
+</div>
+
+</body>
+</html>

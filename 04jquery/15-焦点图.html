@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+            list-style: none;
+        }
+        body{
+            background: #000;
+        }
+        .box{
+            width: 600px;
+            height: 200px;
+            border: 1px solid #f40;
+            margin: 50px auto;
+            overflow: hidden;
+        }
+        .box ul{
+            width: 9999px;
+            position: relative;
+        }
+        .box ul li {
+            float: left;
+        }
+
+    </style>
+</head>
+
+<script src="jquery-3.1.1.js"></script>
+<script>
+    $(function () {
+
+        var timer = null;
+        var leftX = 0;
+        //开始滚动
+        function scrollPic() {
+            timer = setInterval(function () {
+                leftX +=3;
+                if(leftX >= 1200){
+                    leftX = 0;
+                }
+                $('ul').css({
+                    left:-leftX
+                });
+            },30);
+        }
+        scrollPic();
+
+        //高内聚，低耦合
+        //在同一个文件当中，把相同的代码聚合到一起。称高内聚
+        //1.减少代码的行数。
+        //2.提高代码的复用性。
+        //3.提高代表的阅读性
+
+        //低耦合：
+        //减少文件与文件之间的关联性。
+
+        $('li').hover(function () {
+            clearInterval(timer);//停止定时器
+            $(this).animate({opacity:1}).siblings().animate({opacity:0.5});
+        },function () {
+            $('li').animate({opacity:1});
+            //开始滚动
+            scrollPic();
+        });
+
+
+    });
+</script>
+
+
+
+<body>
+
+<div class="box">
+
+    <ul>
+        <li><img src="images/fengtu/01.jpg" alt=""></li>
+        <li><img src="images/fengtu/02.jpg" alt=""></li>
+        <li><img src="images/fengtu/03.jpg" alt=""></li>
+        <li><img src="images/fengtu/04.jpg" alt=""></li>
+        <!--不要出现黑边-->
+        <li><img src="images/fengtu/01.jpg" alt=""></li>
+        <li><img src="images/fengtu/02.jpg" alt=""></li>
+    </ul>
+
+</div>
+
+
+
+
+</body>
+</html>

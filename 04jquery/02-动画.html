@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width: 100px;
+            height: 200px;
+            background: red;
+            display: none;
+        }
+    </style>
+</head>
+<script src="jquery-3.1.1.js"></script>
+<script>
+    $(function () {
+
+        $('button').eq(0).click(function () {
+            //显示动画
+            $('div').show(2000,function () {
+                //当动画完成时自动调用;
+                alert('动画完成');
+            });
+        });
+        $('button').eq(1).click(function () {
+            //隐藏动画
+            $('div').hide(2000,function () {
+                //当动画完成时自动调用;
+                alert('隐藏完成');
+            });
+        });
+
+        $('button').eq(2).click(function () {
+            //隐藏动画
+            $('div').toggle(2000,function () {
+                //当动画完成时自动调用;
+
+            });
+        });
+    });
+</script>
+<body>
+
+<button>显示</button>
+<button>隐藏</button>
+<button>切换显示隐藏</button>
+<div></div>
+
+</body>
+</html>

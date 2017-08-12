@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<script src="jquery-3.1.1.js"></script>
+<script>
+    $(function () {
+
+        $('button:eq(0)').click(function () {
+            $('div').animate({
+                width:300,
+                height:300
+            },1000,function () {
+                alert('finish');
+            });
+        });
+
+        $('button:eq(1)').click(function () {
+            $('div').animate({
+                width:'+=100',
+                height:'+=100'
+            },1000,function () {
+                alert('finish');
+            });
+        });
+
+        $('button:eq(2)').click(function () {
+            $('div').animate({
+                width:'toggle',
+                height:'toggle'
+            },1000,function () {
+                alert('finish');
+            });
+        });
+
+    });
+</script>
+<body>
+<!--都是设置属性值-->
+<button>值自定义动画</button>
+<button>累加自定义动画</button>
+<button>切换自定义动画</button>
+
+
+<div></div>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<script src="jquery-3.1.1.js"></script>
+<script>
+    $(function () {
+
+        $('button:eq(0)').click(function () {
+            $('div').animate({height:500},1000)
+                .animate({width:300},1000)
+                .animate({height:100},1000)
+                .animate({width:100},1000);
+        });
+
+        $('button:eq(1)').click(function () {
+
+            //立即停止当前动画,后续动画不再执行
+            $('div').stop(true)
+//            $('div').stop(true,false)
+            //立即停止当前动画，后续动画继续执行
+//            $('div').stop(false)
+//            $('div').stop(false,false)
+//            $('div').stop(); //什么都不填，默认为false
+//            立即完成当前动画，后续动画继续执行
+//            $('div').stop(false,true);
+//            立即完成当前动画，后续动画不再执行
+//            $('div').stop(true,true);
+
+
+        });
+
+
+    });
+</script>
+<body>
+<!--都是设置属性值-->
+<button>动画队列</button>
+<button>停止动画</button>
+<div></div>
+</body>
+</html>

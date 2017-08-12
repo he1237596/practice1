@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+            list-style: none;
+        }
+        .box {
+            width: 320px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 50px auto;
+        }
+        .box .first li {
+            border-bottom: 1px solid #ccc;
+            line-height: 44px;
+            text-indent: 10px;
+        }
+
+        .box .first li span {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            float: right;
+            background: url("images/arrow_right.png") no-repeat;
+            position: relative;
+            top: 10px;
+            right: 5px;
+            transition: 0.2s;
+        }
+        .sec {
+            background: #2d2c41;
+             display: none;
+        }
+
+        .sec li {
+            border-bottom: 1px solid #4b4a5e;
+            color: #fff;
+        }
+
+        .sec li:hover {
+            background: #C12C3E;
+        }
+
+        .box .first .cur span{
+            transform: rotate(90deg);
+        }
+
+    </style>
+</head>
+
+<script src="jquery-3.1.1.js"></script>
+<script>
+    $(function () {
+
+        //第一级li的点击
+        $('.first>li').click(function () {
+            $(this).toggleClass('cur');
+            /*1.当前选中的li 箭头旋转*/
+            $(this).siblings().removeClass('cur');
+            /*2.让它所有兄弟元素收起*/
+            $(this).siblings().children('ul').slideUp();
+            /*3.让当前li的ul展开*/
+            $(this).children('ul').slideToggle();
+        });
+
+    });
+</script>
+
+<body>
+
+<div class="box">
+
+    <ul class="first">
+        <li><span></span>第一级菜单
+            <ul class="sec">
+                <li>第二级菜单1</li>
+                <li>第二级菜单2</li>
+                <li>第二级菜单3</li>
+                <li>第二级菜单4</li>
+            </ul>
+        </li>
+        <li><span></span>第一级菜单
+            <ul class="sec">
+                <li>第二级菜单1</li>
+                <li>第二级菜单2</li>
+                <li>第二级菜单3</li>
+                <li>第二级菜单4</li>
+            </ul>
+        </li>
+        <li><span></span>第一级菜单
+            <ul class="sec">
+                <li>第二级菜单1</li>
+                <li>第二级菜单2</li>
+                <li>第二级菜单3</li>
+                <li>第二级菜单4</li>
+            </ul>
+        </li>
+        <li><span></span>第一级菜单
+            <ul class="sec">
+                <li>第二级菜单1</li>
+                <li>第二级菜单2</li>
+                <li>第二级菜单3</li>
+                <li>第二级菜单4</li>
+            </ul>
+        </li>
+        <li><span></span>第一级菜单
+            <ul class="sec">
+                <li>第二级菜单1</li>
+                <li>第二级菜单2</li>
+                <li>第二级菜单3</li>
+                <li>第二级菜单4</li>
+            </ul>
+        </li>
+        <li><span></span>第一级菜单
+            <ul class="sec">
+                <li>第二级菜单1</li>
+                <li>第二级菜单2</li>
+                <li>第二级菜单3</li>
+                <li>第二级菜单4</li>
+            </ul>
+        </li>
+    </ul>
+
+</div>
+
+
+
+</body>
+</html>

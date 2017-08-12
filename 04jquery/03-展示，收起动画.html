@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width: 100px;
+            height: 200px;
+            background: red;
+            display: none;
+        }
+    </style>
+</head>
+<script src="jquery-3.1.1.js"></script>
+<script>
+    $(function () {
+        $('button:eq(0)').click(function () {
+            //对谁操作，先选择谁。 //展开
+            $('div').slideDown();
+        });
+
+        $('button:eq(1)').click(function () {
+            //对谁操作，先选择谁。 //收起
+            $('div').slideUp(2000,function () {
+                alert('1');
+            });
+        });
+
+        $('button:eq(2)').click(function () {
+            //对谁操作，先选择谁。 //收起
+            $('div').slideToggle(2000,function () {
+                alert('1');
+            });
+        });
+    });
+</script>
+<body>
+<button>展开</button>
+<button>收起</button>
+<button>切换</button>
+<div></div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .box{
+            width: 360px;
+            height: 220px;
+            border: 1px solid #ccc;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        .box ul{
+            overflow: hidden;
+        }
+        .box ul li{
+            width: 90px;
+            height: 50px;
+            float: left;
+            margin: 2px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .box span{
+            background: url("images/bg.png") 0 -24px no-repeat;
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            position: relative;
+        }
+        .box p {
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<script src="jquery-3.1.1.js"></script>
+<script>
+    $(function () {
+
+        //设置背景图片
+        //选择所有li,进行遍历
+        $('li').each(function (key,ele) {
+            //动态设置url
+            var url = 'url("images/bg.png") 0 -'+ key * 24 +'px no-repeat';
+            $(ele).find('span').css({
+                background:url
+            });
+        });
+
+        /*2.添加动画*/
+        $('li').mouseenter(function () {
+            $(this).find('span').stop().animate({
+                top:-50
+            },function () {
+              $(this).css({
+                  top:15,
+                  opacity:0.3
+              }).stop().animate({
+                  top:0,
+                  opacity:1
+              })
+            });
+        });
+
+
+    });
+</script>
+
+
+<body>
+
+<div class="box">
+    <ul>
+        <li><span></span><p>百度</p></li>
+        <li><span></span><p>淘宝</p></li>
+        <li><span></span><p>新浪</p></li>
+        <li><span></span><p>网易</p></li>
+        <li><span></span><p>搜狐</p></li>
+        <li><span></span><p>腾讯</p></li>
+        <li><span></span><p>优酷</p></li>
+        <li><span></span><p>京东</p></li>
+    </ul>
+</div>
+
+</body>
+</html>

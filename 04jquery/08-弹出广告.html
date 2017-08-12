@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .ad{
+            width: 300px;
+            height: 194px;
+            background: url("images/ad-pic.png");
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            display: none;
+        }
+        .close{
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            float: right;
+        }
+    </style>
+</head>
+<script src="jquery-3.1.1.js"></script>
+<script>
+//    $(function () {
+//        //弹出广告
+//        $('.ad').slideDown().fadeOut().fadeIn().delay(3000).slideUp();
+//        //关闭广告
+//        $('.close').click(function () {
+//            //开始动画时， 要先停止动画队列。
+//            $(this).parent().stop().slideUp();
+//        });
+//    });
+    $(function () {
+        $('.ad').slideDown(1000).fadeOut(1000).fadeIn(1000).delay(3000).slideUp(1000);
+        $('.close').click(function () {
+//            $('.ad').stop().slideUp(1000);
+            $(this).parent().stop().slideUp(1000);
+
+        })
+    })
+</script>
+
+<body>
+
+<div class="ad">
+    <span class="close"></span>
+</div>
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab adipisci aliquam aspernatur assumenda at aut dolor ducimus expedita fuga fugit harum in inventore iure iusto libero natus nostrum perferendis placeat rem sed, ullam ut, vero. A accusamus accusantium aperiam assumenda dolorem doloribus excepturi inventore ipsam maiores molestiae molestias necessitatibus neque quidem recusandae repellat sint voluptate, voluptatibus. Ab architecto at autem consequuntur dolor eaque eos eum fuga impedit ipsa iste iure, labore laboriosam maxime, nemo nisi nobis odio omnis praesentium quaerat quis quod sed similique veritatis, vero. Accusamus corporis delectus deleniti dolores eaque eos harum itaque magni necessitatibus optio quaerat, quidem quo quos recusandae repellat, reprehenderit voluptatibus. Amet cum laudantium qui velit voluptatum. Accusantium aperiam architecto consequatur dolor eaque eligendi eum iusto, laboriosam laborum libero, nam necessitatibus quam reprehenderit sequi voluptatem? Assumenda at corporis cumque delectus dicta, dolore eius id, magni nam non odio possimus quaerat quia tempore veritatis? Aliquam aperiam autem cum cumque deleniti dolore dolorum eius est eum eveniet exercitationem expedita facere fugiat illo impedit inventore ipsam iusto laborum, maxime minima modi molestias natus necessitatibus nesciunt non odit perferendis placeat porro quasi quia quisquam quod ratione reiciendis reprehenderit sed vitae voluptate? Consectetur corporis itaque pariatur quos sequi totam voluptas.
+
+
+</body>
+</html>
